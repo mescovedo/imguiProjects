@@ -1,0 +1,16 @@
+{
+  "window": {
+    "width": 1280,
+    "height": 720,
+    "title": "Dear ImGui Demo"
+  },
+  "rendering": {
+    "glsl_version": "#version 130",
+    "vsync": true,
+    "clear_color": [0.1, 0.1, 0.1, 1.0],
+    "fps": 60
+  },
+  "imgui": {
+    "style": "Dark"
+  }
+}

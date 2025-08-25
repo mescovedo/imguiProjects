@@ -5,10 +5,14 @@
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ## 🎯 Purpose
 
-This project is a base template for projects using **Dear ImGui + GLFW + OpenGL**, ready for configuration via JSON.  
-It is designed as a starting point for development on **Windows with CLion (CMake)**.
+This repository is a base template for small 2D projects, prototypes, and tools using Dear ImGui.
+It provides two approaches depending on the abstraction level you prefer:
 
-Ideal for interface prototypes, debug tools, or simple 2D/3D games.
+Low-level: GLFW + OpenGL + ImGui
+
+High-level: SFML + ImGui-SFML + ImGui
+
+Both models allow easy configuration via JSON and are ready to build on Windows with CLion (CMake).
 
 ## 🛠 Requirements
 
@@ -20,39 +24,54 @@ Ideal for interface prototypes, debug tools, or simple 2D/3D games.
 
 ### Included libraries:
 
-| Library       | Purpose                     | Type         |
-|---------------|----------------------------|-------------|
-| ImGui         | GUI framework              | header + cpp|
-| GLFW          | Window/input management    | static lib  |
-| nlohmann/json | JSON parsing               | header-only |
+| Library       | Version | Purpose                          | Used in              |
+|---------------|---------|----------------------------------|----------------------|
+| ImGui         | 1.89.5  | Immediate GUI framework          | Both                 |
+| nlohmann/json | latest  | JSON parsing                     | Both                 |
+| GLFW          | 3.4     | Window/input management          | Low-level template   |
+| OpenGL        | system  | Rendering backend for GLFW       | Low-level template   |
+| SFML          | 2.6.2   | High-level window/graphics/audio | High-level template  |
+| ImGui-SFML    | 2.6.1   | Bridge ImGui + SFML              | High-level template  |
+
 
 ## 🚀 Running the demo
 
-- Open the project in CLion.
+- Open the desired project folder (low-level/ or high-level/) in CLion.
 
 - Make sure config.json is in the root of the project.
 
-- Build and run → the default ImGui demo window will appear.
+- Build and run:
+  - Low-level: an OpenGL window will open with the ImGui demo window.
+
+  - High-level: an SFML window will open with the ImGui demo window.
 
 - Edit config.json to change parameters like window size, background color, style, vsync.
 
 ## 📁 Folder structure
 
        imguiProjects/
-       ├─ main.cpp
+       ├─ low-level/
+       |   ├─ main.cpp
+       |
+       ├─ high-level/
+       |   ├─ main.cpp
+       |
        ├─ CMakeLists.txt
-       ├─ config.json
-       ├─ assets/ 
+       ├─ config_high_level.json
+       ├─ config_low_level.json
+       |
        └─ external/
            ├─ imgui/
            ├─ glfw/
+           ├─ sfml/
+           ├─ imgui-sfml/
            └─ json/
 
 ## 🧩 Creating a new project
 - ### Create a branch or copy the template
     - Option 1: Create a Git branch based on the template commit:
-        - ```
-          git checkout -b my_new_project
+      ```
+      git checkout -b my_new_project
 
     - Option 2: Copy the entire folder to a new location.
 
@@ -60,11 +79,11 @@ Ideal for interface prototypes, debug tools, or simple 2D/3D games.
 
   - Replace the ImGui demo with your own elements or gameplay:
 
-    - ``` 
-        // Before 
-        ImGui::ShowDemoWindow(&show_demo_window);
+    ``` 
+      // Before 
+      ImGui::ShowDemoWindow(&show_demo_window);
 
-    - ```
+     ```
         // After
         ImGui::Begin("My Window");
         ImGui::Text("Hello, world!");
@@ -74,7 +93,7 @@ Ideal for interface prototypes, debug tools, or simple 2D/3D games.
 - ### Configuration via JSON
 
   -   Keep config.json for mutable parameters:
-      - ``` 
+      ``` 
         {
             "window": {
                  "width": 1280,
